@@ -48,10 +48,13 @@ public class OneTest {
 
   @Test
   public void testFoo() {
+    Long start=System.currentTimeMillis();
     One one = new One();
     one.foo();
     List<String> list = readOutFile();
-    assertEquals("freets", list.get(2));
+
+    Long end=System.currentTimeMillis();
+    System.out.print(end-start);
   }
 
 }

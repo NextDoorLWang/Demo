@@ -83,11 +83,12 @@ public class One {
     }
 
 
+    //排序
     private void subList() {
-        if (inputList.size() == 0){
+        if (inputList.size() == 0) {
             return;
         }
-        if (threadCount >= inputList.size()){
+        if (threadCount >= inputList.size()) {
             threadCount = inputList.size();
         }
 
@@ -150,7 +151,7 @@ public class One {
     }
 
     private int subQuickSortCore(String[] arrays, int start, int end) {
-        String middleValue = arrays[start];
+        String middleValue = arrays[this.SelectPivotMedianOfThree(arrays,start,end)];
         while (start < end) {
             while (arrays[end].compareTo(middleValue) >= 0 && start < end) {
                 end--;
@@ -164,5 +165,37 @@ public class One {
         arrays[start] = middleValue;
         return start;
     }
+
+
+    //选取合理中位数
+    int SelectPivotMedianOfThree(String arr[], int low, int high) {
+        int mid = low + ((high - low) >> 1);//计算数组中间的元素的下标
+        String middle = "";
+        //使用三数取中法选择枢轴
+        if (arr[mid].compareTo(arr[high]) > 0)//目标: arr[mid] <= arr[high]
+        {
+            middle = arr[high];
+            arr[high] = arr[mid];
+            arr[mid] = middle;
+        }
+        if (arr[low].compareTo(arr[high]) > 0)//目标: arr[low] <= arr[high]
+        {
+            middle = arr[high];
+            arr[high] = arr[low];
+            arr[low] = middle;
+        }
+        if (arr[mid].compareTo(arr[low]) > 0) //目标: arr[low] >= arr[mid]
+        {
+            middle = arr[high];
+            arr[high] = arr[mid];
+            arr[mid] = middle;
+        }
+        //此时，arr[mid] <= arr[low] <= arr[high]
+        return low;
+        //low的位置上保存这三个位置中间的值
+        //分割时可以直接使用low位置的元素作为枢轴，而不用改变分割函数了
+    }
+
+
 
 }
